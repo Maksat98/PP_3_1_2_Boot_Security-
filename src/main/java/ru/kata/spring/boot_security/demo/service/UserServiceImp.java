@@ -22,12 +22,12 @@ public class UserServiceImp implements UserService, UserDetailsService {
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-    @Transactional
+
     @Override
     public List<User> allUsers() {
         return (List<User>) userRepository.findAll();
     }
-    @Transactional
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id).orElse(null);
@@ -46,7 +46,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByEmail(username);
         if (user == null) {
@@ -58,7 +57,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public void edit(Long id, User editUser) {
         User user = userRepository.findById(id).get();
         editUser.setPassword(
@@ -67,7 +65,6 @@ public class UserServiceImp implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public User getUsername(String username) {
         return userRepository.findByEmail(username);
     }
